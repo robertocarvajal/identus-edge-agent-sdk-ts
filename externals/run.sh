@@ -38,16 +38,16 @@ buildDIDComm() {
   # generate new
   cd "${DIDCommDir}/wasm"
   wasm-pack build --target=web --out-dir="${GenDIDComm}-wasm"
-
   cd "${GenDIDComm}-wasm"
   if is_mac; then
+    sed -i '' 's/"module": "didcomm_js.js",/"main": "didcomm_js.js",/' package.json
     sed -i '' "/if (typeof input === 'undefined') {/,/}/d" didcomm_js.js;
     sed -i '' "/if (typeof module_or_path === 'undefined') {/,/}/d" didcomm_js.js;
   else
+    sed -i  's/"module": "didcomm_js.js",/"main": "didcomm_js.js",/' package.json
     sed -i "/if (typeof input === 'undefined') {/,/}/d" didcomm_js.js;
     sed -i "/if (typeof module_or_path === 'undefined') {/,/}/d" didcomm_js.js;
   fi
-
   cd $ExternalsDir
   git submodule | grep $DIDComm | awk '{print $1}' > "./${DIDComm}.commit"
 }
@@ -65,11 +65,14 @@ buildJWT() {
   #TODO: find better way to approach this
   #This code fails on browser when wasm is first loaded, it can just be ignored
   #The code will fully work
+
   cd "${GenJWERust}-wasm"
   if is_mac; then
-    sed -i '' "/if (typeof input === 'undefined') {/,/}/d" jwe_rust.js;
+    sed -i '' 's/"module": "jwe_rust.js",/"main": "jwe_rust.js",/' package.json;
+     sed -i '' "/if (typeof input === 'undefined') {/,/}/d" jwe_rust.js;
     sed -i '' "/if (typeof module_or_path === 'undefined') {/,/}/d" jwe_rust.js;
   else
+    sed -i 's/"module": "jwe_rust.js",/"main": "jwe_rust.js",/' package.json;
     sed -i "/if (typeof input === 'undefined') {/,/}/d" jwe_rust.js;
     sed -i "/if (typeof module_or_path === 'undefined') {/,/}/d" jwe_rust.js;
   fi
@@ -93,9 +96,11 @@ buildAnonCreds() {
   #The code will fully work
   cd "${GenAnonCreds}-wasm"
   if is_mac; then
+    sed -i '' 's/"module": "anoncreds_wasm.js",/"main": "anoncreds_wasm.js",/' package.json;
     sed -i '' "/if (typeof input === 'undefined') {/,/}/d" "./${AnonCreds}_wasm.js";
     sed -i '' "/if (typeof module_or_path === 'undefined') {/,/}/d" "./${AnonCreds}_wasm.js";
   else
+    sed -i 's/"module": "anoncreds_wasm.js",/"main": "anoncreds_wasm.js",/' package.json;
     sed -i "/if (typeof input === 'undefined') {/,/}/d" "./${AnonCreds}_wasm.js";
     sed -i "/if (typeof module_or_path === 'undefined') {/,/}/d" "./${AnonCreds}_wasm.js";
   fi
