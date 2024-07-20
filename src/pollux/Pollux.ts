@@ -50,7 +50,7 @@ import {
 import { AnonCredsCredential } from "./models/AnonCredsVerifiableCredential";
 import { JWTCredential } from "./models/JWTVerifiableCredential";
 import { FetchApi } from "../edge-agent/helpers/FetchApi";
-import { JWTJson, PresentationRequest, SDJWTJson } from "./models/PresentationRequest";
+import { PresentationRequest, SDJWTJson } from "./models/PresentationRequest";
 import { DescriptorPath } from "./utils/DescriptorPath";
 import { JWT as JWTClass } from "./utils/JWT";
 import { InvalidVerifyCredentialError, InvalidVerifyFormatError } from "../domain/models/errors/Pollux";
