@@ -112,9 +112,9 @@ export interface AgentInvitations {
   parseOOBInvitation(str: URL): Promise<OutOfBandInvitation>;
 }
 
-type MessageEventArg = Message[];
-type ConnectionEventArg = DIDPair;
-type RevokeEventArg = Credential;
+export type MessageEventArg = Message[];
+export type ConnectionEventArg = DIDPair;
+export type RevokeEventArg = Credential;
 export type EventCallback = (arg: MessageEventArg | ConnectionEventArg | RevokeEventArg) => void;
 export type EventPickupCallback = (messages: {
   attachmentId: string;
